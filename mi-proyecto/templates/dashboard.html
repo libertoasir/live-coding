@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Notas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body class="container">
+    <nav>
+        <ul><li><strong>Mis Notas</strong></li></ul>
+        <ul><li><a href="/logout" class="outline">Salir</a></li></ul>
+    </nav>
+
+    <main>
+        <form method="POST">
+            <textarea name="content" placeholder="Escribe aquí tu nota..." required></textarea>
+            <button type="submit">Guardar Nota</button>
+        </form>
+
+        <hr>
+
+        <div class="grid">
+            {% for note in notes %}
+            <article>
+                <p style="font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem;">
+                    {{ note[1] }}
+                </p>
+        
+                <footer style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 10px;">
+                    <span style="font-size: 0.8rem; color: gray;">
+                        📅 {{ note[2] }}
+                    </span>
+
+                    <a href="{{ url_for('delete_note', note_id=note[0]) }}" 
+                    style="background-color: #ff4444; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 0.8rem;"
+                    onclick="return confirm('¿Seguro que quieres borrar esta nota?')">
+                    Borrar 🗑️
+                    </a>
+                </footer>
+            </article>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
